@@ -1,4 +1,4 @@
-namespace back_facturation_api
+namespace back_facturation_api.Classes
 {
     public class WeatherForecast
     {
