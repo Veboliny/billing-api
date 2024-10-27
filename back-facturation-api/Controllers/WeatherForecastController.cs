@@ -1,3 +1,4 @@
+using back_facturation_api.Classes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace back_facturation_api.Controllers
