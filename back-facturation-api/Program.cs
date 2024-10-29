@@ -1,3 +1,7 @@
+using back_facturation_api.DbData;
+using Microsoft.EntityFrameworkCore;
+
+
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +14,10 @@ builder.Services.AddCors(options =>
             policy.WithOrigins("http://localhost:8080");
         });
 });
+
+// Db Connection
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 
