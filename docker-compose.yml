@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: vebouser
+      POSTGRES_PASSWORD: vebopassword
+      POSTGRES_DB: vebodb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    hostname: veboliny 
+
+volumes:
+  postgres_data:
