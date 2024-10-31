@@ -1,6 +1,7 @@
 using back_facturation_api.Data;
 using back_facturation_api.Helpers;
 using Microsoft.EntityFrameworkCore;
+using DotNetEnv;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -18,6 +19,8 @@ builder.Services.AddCors(options =>
                   .AllowCredentials();
         });
 });
+// Env var
+DotNetEnv.Env.Load(@"../.env");
 
 // Db Connection
 builder.Services.AddDbContext<UserContext>(options =>

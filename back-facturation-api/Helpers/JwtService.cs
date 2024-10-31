@@ -5,7 +5,7 @@ namespace back_facturation_api.Helpers
 {
     public class JwtService
     {
-        private string secureKey = "Notre clef super bien proteger tkt";
+        private string secureKey = Environment.GetEnvironmentVariable("JWT_SECURE_TOKEN");
 
         public string Generate(int id)
         {
