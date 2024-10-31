@@ -2,6 +2,7 @@
 using back_facturation_api.Dtos;
 using back_facturation_api.Helpers;
 using back_facturation_api.Models;
+using back_facturation_api.Tools;
 using Microsoft.AspNetCore.Mvc;
 
 namespace back_facturation_api.Controllers
@@ -29,6 +30,12 @@ namespace back_facturation_api.Controllers
                 Password = BCrypt.Net.BCrypt.HashPassword(dto.Password)
             };
 
+            var tools = new RegexTool();
+
+            if (!tools.IsValidEmail(dto.Email))
+            {
+                return BadRequest(new { message = "Invalide Email Format" });
+            }
             
             return Created("success", _Repository.Create(user));
         }
@@ -38,10 +45,10 @@ namespace back_facturation_api.Controllers
         {
             var user = _Repository.GetByEmail(dto.Email);
             
-            // Check si le user existe
+            // Si le user n'existe pas
             if (user == null) return BadRequest(new { message = "Invalide Credentials"});
             
-            // Check si le mot de passe est correct.
+            // Si le mot de passe est incorrect.
             if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
             {
                 return BadRequest(new { message = "Invalide Credentials"});
@@ -61,7 +68,7 @@ namespace back_facturation_api.Controllers
         }
 
         [HttpGet("user")]
-        public IActionResult User()
+        public new IActionResult User()
         {
             try
             {
