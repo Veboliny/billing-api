@@ -2,7 +2,7 @@
 
 namespace back_facturation_api.Tools
 {
-    public class RegexTool
+    public class Tool
     {
 
         public bool IsValidEmail(string email)
