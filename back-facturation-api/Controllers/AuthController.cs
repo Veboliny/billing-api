@@ -30,7 +30,7 @@ namespace back_facturation_api.Controllers
                 Password = BCrypt.Net.BCrypt.HashPassword(dto.Password)
             };
 
-            var tools = new Tool();
+            var tools = new RegexTool();
 
             if (!tools.IsValidEmail(dto.Email))
             {
