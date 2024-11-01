@@ -21,7 +21,7 @@ builder.Services.AddCors(options =>
 });
 // Env var
 //DotNetEnv.Env.Load(@"../.env");
-DotNetEnv.Env.Load(@"../.env.dev");
+DotNetEnv.Env.Load(@"../dev.env");
 
 // Db Connection
 builder.Services.AddDbContext<UserContext>(options =>
