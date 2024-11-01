@@ -72,13 +72,9 @@ namespace back_facturation_api.Controllers
         {
             try
             {
-
                 var jwt = Request.Cookies["jwt"];
-
                 var token = _JwtService.Verify(jwt);
-
                 int userId = int.Parse(token.Issuer);
-
                 var user = _Repository.GetById(userId);
 
                 return Ok(user);
