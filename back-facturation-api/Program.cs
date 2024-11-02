@@ -3,6 +3,10 @@ using back_facturation_api.Helpers;
 using Microsoft.EntityFrameworkCore;
 using DotNetEnv;
 
+// Env var
+//DotNetEnv.Env.Load(@"../.env");
+DotNetEnv.Env.Load(@"../env.dev");
+
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,13 +23,18 @@ builder.Services.AddCors(options =>
                   .AllowCredentials();
         });
 });
-// Env var
-//DotNetEnv.Env.Load(@"../.env");
-DotNetEnv.Env.Load(@"../dev.env");
 
 // Db Connection
+// Construire la chaîne de connexion en utilisant les variables d'environnement
+var connectionString = 
+    $"Host={Environment.GetEnvironmentVariable("POSTGRES_HOST")};" +
+    $"Database={Environment.GetEnvironmentVariable("POSTGRES_DB")};" +
+    $"Username={Environment.GetEnvironmentVariable("POSTGRES_USER")};" +
+    $"Password={Environment.GetEnvironmentVariable("POSTGRES_PASSWORD")}";
+
 builder.Services.AddDbContext<UserContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(connectionString));
+    //options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 builder.Services.AddControllers();
